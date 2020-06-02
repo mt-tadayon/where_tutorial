@@ -19,14 +19,20 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final List<String> countries = ['France', 'Germany', 'India', 'Iran'];
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
 
+List<String> countries = ['France', 'Germany', 'India', 'Iran'];
+List<String> visibleCountries = countries;
+
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Where Tutorial'),
+        title: Text('Array Methods: .where()'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -37,9 +43,12 @@ class MyHomePage extends StatelessWidget {
                 labelText: 'Country Name',
               ),
               onChanged: (value) {
-                countries.where(
-                  (element) => element.contains(value),
-                );
+                visibleCountries = countries
+                    .where(
+                      (element) => element.contains(value),
+                    )
+                    .toList();
+                setState(() {});
               },
             ),
             SizedBox(
@@ -50,10 +59,10 @@ class MyHomePage extends StatelessWidget {
               child: ListView.builder(
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text(countries[index]),
+                    title: Text(visibleCountries[index]),
                   );
                 },
-                itemCount: countries.length,
+                itemCount: visibleCountries.length,
               ),
             ),
           ],
