@@ -24,10 +24,16 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-List<String> countries = ['France', 'Germany', 'India', 'Iran'];
-List<String> visibleCountries = countries;
-
 class _MyHomePageState extends State<MyHomePage> {
+  List<String> countries = ['France', 'Germany', 'India', 'Iran'];
+  List<String> visibleCountries;
+
+  @override
+  void initState() {
+    visibleCountries = countries;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,9 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               onChanged: (value) {
                 visibleCountries = countries
-                    .where(
-                      (element) => element.contains(value),
-                    )
+                    .where((country) => country.contains(value))
                     .toList();
                 setState(() {});
               },
